@@ -115,6 +115,66 @@ namespace BackEnd.Controllers
                 return StatusCode(500, new { error = "An error occurred while registering the user: " + ex.Message });
             }
         }
+        
+
+        [HttpPut]
+        [Route("UpdateUser/{userId}")]
+        public ActionResult UpdateUser(int userId, Users updatedUser)
+        {
+            try
+            {
+                var userToUpdate = _context.Users.FirstOrDefault(u => u.ID == userId);
+
+                if (userToUpdate != null)
+                {
+                    // Update fields
+                    userToUpdate.Name = updatedUser.Name ?? userToUpdate.Name;
+                    userToUpdate.LastName = updatedUser.LastName ?? userToUpdate.LastName;
+                    userToUpdate.Email = updatedUser.Email ?? userToUpdate.Email;
+                    userToUpdate.Role = updatedUser.Role ?? userToUpdate.Role;
+                    userToUpdate.Username = updatedUser.Username ?? userToUpdate.Username;
+                    userToUpdate.Password = updatedUser.Password ?? userToUpdate.Password;
+
+                    _context.SaveChanges();
+                    return Ok(new { message = "User updated successfully." });
+                }
+                else
+                {
+                    return NotFound(new { message = $"User with ID {userId} not found." });
+                }
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, new { error = "An error occurred while updating the user: " + ex.Message });
+            }
+        }
+
+
+        [HttpDelete]
+        [Route("DeleteUser/{userId}")]
+        public ActionResult DeleteUser(int userId)
+        {
+            try
+            {
+                var userToDelete = _context.Users.FirstOrDefault(u => u.ID == userId);
+
+                if (userToDelete != null)
+                {
+                    _context.Users.Remove(userToDelete);
+                    _context.SaveChanges();
+                    return Ok(new { message = "User deleted successfully." });
+                }
+                else
+                {
+                    return NotFound(new { message = $"User with ID {userId} not found." });
+                }
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, new { error = "An error occurred while deleting the user: " + ex.Message });
+            }
+        }
+
 
         private bool IsValidEmail(string email)
         {
