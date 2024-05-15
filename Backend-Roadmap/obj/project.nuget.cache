@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "81UUlDW7fG25C5/zXmvIuza6sHXqRB9CHz/FSYGDLP3Oq1lRxyxs7tNCnEWdEegx9lclVuQomk3x4ogzhdm9Mg==",
+  "dgSpecHash": "aGezn9JKmIFr4RyUS7JV9X5E8tR3c+ixBjOnsbeDXq+6ZbKC44yGjDWWrkXuFVxbsl/RleIjnCipVRqlwC0kww==",
   "success": true,
-  "projectFilePath": "C:\\Users\\jose\\Documents\\GitHub\\Backend-Roadmap\\BackEnd.csproj",
+  "projectFilePath": "C:\\Users\\jose\\Documents\\GitHub\\RoadmapEQS\\Backend-Roadmap\\BackEnd.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\jose\\.nuget\\packages\\azure.core\\1.35.0\\azure.core.1.35.0.nupkg.sha512",
     "C:\\Users\\jose\\.nuget\\packages\\azure.identity\\1.10.3\\azure.identity.1.10.3.nupkg.sha512",

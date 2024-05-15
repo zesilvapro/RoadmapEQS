@@ -8524,11 +8524,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\jose\\Documents\\GitHub\\Backend-Roadmap\\BackEnd.csproj",
+      "projectUniqueName": "C:\\Users\\jose\\Documents\\GitHub\\RoadmapEQS\\Backend-Roadmap\\BackEnd.csproj",
       "projectName": "BackEnd",
-      "projectPath": "C:\\Users\\jose\\Documents\\GitHub\\Backend-Roadmap\\BackEnd.csproj",
+      "projectPath": "C:\\Users\\jose\\Documents\\GitHub\\RoadmapEQS\\Backend-Roadmap\\BackEnd.csproj",
       "packagesPath": "C:\\Users\\jose\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\jose\\Documents\\GitHub\\Backend-Roadmap\\obj\\",
+      "outputPath": "C:\\Users\\jose\\Documents\\GitHub\\RoadmapEQS\\Backend-Roadmap\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
