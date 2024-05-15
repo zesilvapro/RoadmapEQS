@@ -1,0 +1,107 @@
+<div class="register-container">
+      <img src="assets/uno_symbol.png" alt="uno_symbol" width="40px;" height="40px">
+      <h1 >Create Account</h1>
+      <h5>Roadmap System</h5>
+
+
+      <div class="nameLname-container">
+        <div class="name">
+          <label for="name">Name</label>
+          <input type="text" id="name" placeholder="Insert your name" [(ngModel)]="name">
+        </div>
+        <div class="Lname">
+          <label for="lastName">Last Name</label>
+          <input type="text" id="lastName"  placeholder="Insert your last name" [(ngModel)]="lastName" >
+        </div>
+
+      </div>
+      <div class="info">
+        <label for="email">Email</label>
+        <input type="email" id="email"  placeholder="Insert your email" [(ngModel)]="email">
+        <label for="username">Username</label>
+        <input type="text" id="username"  placeholder="Insert your username" [(ngModel)]="username">
+
+
+        <label for="password">Password</label>
+        <input type="password" id="password" placeholder="Insert your password" [(ngModel)]="password" name="password" #passwordInput="ngModel" required (input)="checkPasswords()">
+
+
+        <label for="confirmPassword">Confirm Password</label>
+        <input type="password" id="confirmPassword" placeholder="Confirm your password" [(ngModel)]="confirmPassword" name="confirmPassword" #confirmPasswordInput="ngModel" required (input)="checkPasswords()">
+        <div *ngIf="passwordInput.invalid && (passwordInput.dirty || passwordInput.touched)">
+          <div *ngIf="passwordInput.errors?.['required']">
+            Password is required.
+          </div>
+        </div>
+
+        <div *ngIf="confirmPasswordInput.invalid && (confirmPasswordInput.dirty || confirmPasswordInput.touched)">
+          <div *ngIf="confirmPasswordInput.errors?.['required']">
+            Confirm Password is required.
+          </div>
+        </div>
+
+        <div *ngIf="passwordInput.valid && confirmPasswordInput.valid && password !== confirmPassword">
+          <div class="pswderror">Passwords do not match.</div>
+        </div>
+      </div>
+
+
+
+
+
+
+
+      <div class="buttons">
+        <button (click)="onClickRegisterUser()" [disabled]="!passwordsMatch || passwordInput.invalid || confirmPasswordInput.invalid">Register User</button>
+        <br>
+        <button type="submit"  class="btn-cancel" >Cancel</button>
+
+        <p>copyright  &#169; 2022. All rights reserved to UNO means you  know. </p>
+        <p>Version: 0.000 - API Version 2.32.0</p>
+
+      </div>
+
+
+</div>
+
+
+
+
+  <router-outlet></router-outlet>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

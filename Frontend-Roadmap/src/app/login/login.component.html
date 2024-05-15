@@ -1,0 +1,30 @@
+    <div class="app-login">
+    <img src="assets/uno_symbol.png" alt="uno_symbol" width="40px;" height="40px">
+    <h1>Roadmap System</h1>
+    <h5>Enter your credentials to acess your account</h5>
+
+
+    <div class="inputs">
+      <div class="email-text">
+        <label for="email">Email</label>
+        <input [(ngModel)]="email" id="email" type="email" placeholder="email@eqsglobal.com"/>
+      </div>
+
+      <div class="password-text">
+        <label for="password">Password</label>
+        <input [(ngModel)]="password" id="password" type="password" placeholder="**********"/>
+
+        <div style="display: flex; justify-content: flex-end;">
+          <a class="fpwd" href="">forgot your password</a>
+        </div>
+      </div>
+    </div>
+
+
+      <div class="login-create">
+        <button class="signup" (click)="login()">Login</button>
+        <a class="createUser" (click)="toggleRegisterState()">Create an account</a>
+
+      </div>
+
+    </div>

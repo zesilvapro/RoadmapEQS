@@ -1,0 +1,60 @@
+
+
+h5{
+  color: rgb(103, 103, 103);
+}
+
+button{
+  background-color:rgb(5, 5, 119);
+  color: aliceblue;
+  width: 75%;
+  height: 30px;
+  border-radius: 10px;
+}
+
+button:hover{
+  background-color: rgb(35, 35, 134);
+  cursor: pointer;
+
+}
+
+a{
+  text-decoration: none;
+  color: rgb(0, 0, 0);
+}
+.login-create{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.createUser:hover{
+  cursor: pointer;
+}
+
+.email-text{
+  width: 90%;
+  display: flex;
+  flex-direction: column;
+}
+.password-text{
+  width: 90%;
+  display: flex;
+  flex-direction: column;
+}
+input{
+  border-radius: 5px;
+  height: 30px;
+  width: 100%;
+}
+.fpwd{
+  text-decoration: none;
+  color: rgb(90, 78, 78);
+}
+.inputs{
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+
+
+
