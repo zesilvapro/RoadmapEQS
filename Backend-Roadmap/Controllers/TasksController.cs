@@ -27,7 +27,7 @@ namespace BackEnd.Controllers
             return CreatedAtAction("GetTask", new { id = task.ID }, task);
         }
 
-        // DELETE: api/Task/5
+        // DELETE:
         [HttpDelete("DeleteTask/{id}")]
         public async Task<IActionResult> DeleteTask(int id)
         {
@@ -43,7 +43,7 @@ namespace BackEnd.Controllers
             return NoContent();
         }
 
-        // PUT: api/Task/5
+        // PUT: 
         [HttpPut("UpdateTask/{id}")]
         public async Task<IActionResult> PutTask(int id, Models.Task task)
         {
