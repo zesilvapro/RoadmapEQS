@@ -119,21 +119,21 @@ namespace BackEnd.Controllers
 
         [HttpPut]
         [Route("UpdateUser/{userId}")]
-        public ActionResult UpdateUser(int userId, Users updatedUser)
+        public ActionResult UpdateUser(int userId, [FromBody] Users userToUpdate)        
         {
             try
             {
-                var userToUpdate = _context.Users.FirstOrDefault(u => u.ID == userId);
+                var existingUser = _context.Users.FirstOrDefault(u => u.ID == userId);
 
-                if (userToUpdate != null)
+                if (existingUser != null)
                 {
-                    // Update fields
-                    userToUpdate.Name = updatedUser.Name ?? userToUpdate.Name;
-                    userToUpdate.LastName = updatedUser.LastName ?? userToUpdate.LastName;
-                    userToUpdate.Email = updatedUser.Email ?? userToUpdate.Email;
-                    userToUpdate.Role = updatedUser.Role ?? userToUpdate.Role;
-                    userToUpdate.Username = updatedUser.Username ?? userToUpdate.Username;
-                    userToUpdate.Password = updatedUser.Password ?? userToUpdate.Password;
+                   
+                    existingUser.Name = userToUpdate.Name ?? existingUser.Name;
+                    existingUser.LastName = userToUpdate.LastName ?? existingUser.LastName;
+                    existingUser.Email = userToUpdate.Email ?? existingUser.Email;
+                    existingUser.Role = userToUpdate.Role ?? existingUser.Role;
+                    existingUser.Username = userToUpdate.Username ?? existingUser.Username;
+                    existingUser.Password = userToUpdate.Password ?? existingUser.Password;
 
                     _context.SaveChanges();
                     return Ok(new { message = "User updated successfully." });
