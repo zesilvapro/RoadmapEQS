@@ -3,6 +3,8 @@ using BackEnd.Models;
 using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Data.SqlClient;
+using Microsoft.EntityFrameworkCore;
+using System;
 using System.Data;
 using System.Text.RegularExpressions;
 
@@ -25,12 +27,12 @@ namespace BackEnd.Controllers
 
         [HttpGet]
         [Route("GetAllUsers")]
-        public ActionResult<IEnumerable<Users>> GetUsers()
+        public async Task<ActionResult<IEnumerable<Users>>> GetUsers()
         {
             try
             {
                 
-                var userList = _context.Users.ToList();
+                var userList = await _context.Users.ToListAsync();
 
                 if (userList.Count > 0)
                 {
@@ -50,7 +52,7 @@ namespace BackEnd.Controllers
 
         [HttpPost]
         [Route("LoginUser")]
-        public ActionResult<Users> Login([FromBody] LoginModel loginModel)
+        public async Task<ActionResult<Users>> Login([FromBody] LoginModel loginModel)
         {
             try
             {
@@ -83,7 +85,7 @@ namespace BackEnd.Controllers
 
         [HttpPost]
         [Route("RegisterUser")]
-        public ActionResult RegisterUser([FromBody] Users newUser)
+        public async  Task<ActionResult> RegisterUser([FromBody] Users newUser)
         {
             try
             {
@@ -116,47 +118,49 @@ namespace BackEnd.Controllers
             }
         }
         
-
+     
         [HttpPut]
         [Route("UpdateUser/{userId}")]
-        public ActionResult UpdateUser(int userId, [FromBody] Users userToUpdate)        
-        {
-            try
-            {
-                var existingUser = _context.Users.FirstOrDefault(u => u.ID == userId);
-
-                if (existingUser != null)
+        public async Task<ActionResult> UpdateUser(int userId, [FromBody] Users userToUpdate)
                 {
-                   
-                    existingUser.Name = userToUpdate.Name ?? existingUser.Name;
-                    existingUser.LastName = userToUpdate.LastName ?? existingUser.LastName;
-                    existingUser.Email = userToUpdate.Email ?? existingUser.Email;
-                    existingUser.Role = userToUpdate.Role ?? existingUser.Role;
-                    existingUser.Username = userToUpdate.Username ?? existingUser.Username;
-                    existingUser.Password = userToUpdate.Password ?? existingUser.Password;
+                    try
+                    {
+                        // Use asynchronous database operation to find user
+                        var existingUser = await _context.Users.FirstOrDefaultAsync(u => u.ID == userId);
 
-                    _context.SaveChanges();
-                    return Ok(new { message = "User updated successfully." });
+                        if (existingUser != null)
+                        {
+                            // Update fields
+                            existingUser.Name = userToUpdate.Name ?? existingUser.Name;
+                            existingUser.LastName = userToUpdate.LastName ?? existingUser.LastName;
+                            existingUser.Email = userToUpdate.Email ?? existingUser.Email;
+                            existingUser.Role = userToUpdate.Role ?? existingUser.Role;
+                            existingUser.Username = userToUpdate.Username ?? existingUser.Username;
+                            existingUser.Password = userToUpdate.Password ?? existingUser.Password;
+
+                            // Use asynchronous database operation to save changes
+                            await _context.SaveChangesAsync();
+                            return Ok(new { message = "User updated successfully." });
+                        }
+                        else
+                        {
+                            return NotFound(new { message = $"User with ID {userId} not found." });
+                        }
+                    }
+                    catch (Exception ex)
+                    {
+                        return StatusCode(500, new { error = "An error occurred while updating the user: " + ex.Message });
+                    }
                 }
-                else
-                {
-                    return NotFound(new { message = $"User with ID {userId} not found." });
-                }
-            }
-            catch (Exception ex)
-            {
-                return StatusCode(500, new { error = "An error occurred while updating the user: " + ex.Message });
-            }
-        }
 
 
         [HttpDelete]
         [Route("DeleteUser/{userId}")]
-        public ActionResult DeleteUser(int userId)
+        public async Task<ActionResult> DeleteUser(int userId)
         {
             try
             {
-                var userToDelete = _context.Users.FirstOrDefault(u => u.ID == userId);
+                var userToDelete =  await _context.Users.FirstOrDefaultAsync(u => u.ID == userId);
 
                 if (userToDelete != null)
                 {
