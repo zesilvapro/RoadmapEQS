@@ -2,7 +2,7 @@
 
 namespace BackEnd.Models
 {
-    public class Users
+    public class User
     {
         [Key]
         public int ID { get; set; }

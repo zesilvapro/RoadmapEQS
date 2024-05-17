@@ -3,7 +3,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace BackEnd.Models
 {
-    public class Task
+    public class Tasks
     {
         [Key]
         public int ID { get; set; }

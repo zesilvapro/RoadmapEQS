@@ -396,3 +396,6 @@ FodyWeavers.xsd
 
 # JetBrains Rider
 *.sln.iml
+/Backend-Roadmap/.vs/
+/Backend-Roadmap/bin/
+/Backend-Roadmap/obj/

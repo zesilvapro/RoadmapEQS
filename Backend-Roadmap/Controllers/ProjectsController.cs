@@ -18,18 +18,18 @@ namespace BackEnd.Controllers
                 _context = context;
             }
 
-            // GET: api/Project
-            [HttpGet]
+             
+            [HttpGet("GellAllProjects")]
             public async Task<ActionResult<IEnumerable<Project>>> GetProjects()
             {
-                return await _context.Project.ToListAsync();
+                return await _context.Projects.ToListAsync();
             }
 
-            // GET: api/Project/5
-            [HttpGet("{id}")]
+             
+            [HttpGet("GetProjectsBy{id}")]
             public async Task<ActionResult<Project>> GetProject(int id)
             {
-                var project = await _context.Project.FindAsync(id);
+                var project = await _context.Projects.FindAsync(id);
 
                 if (project == null)
                 {
@@ -39,17 +39,16 @@ namespace BackEnd.Controllers
                 return project;
             }
 
-            // POST: api/Project
-            [HttpPost]
-            public async Task<ActionResult<Project>> PostProject(Project project)
+            [HttpPost("CreateProject")]
+            public async Task<ActionResult<Project>> PostProject([FromBody] Project project)
             {
-                _context.Project.Add(project);
+                _context.Projects.Add(project);
                 await _context.SaveChangesAsync();
 
                 return CreatedAtAction("GetProject", new { id = project.ID }, project);
             }
 
-            // PUT: api/Project/5
+            
             [HttpPut("UpdateBy{id}")]
             public async Task<IActionResult> PutProject(int id, Project project)
             {
@@ -83,13 +82,13 @@ namespace BackEnd.Controllers
             [HttpDelete("DeleteBy{id}")]
             public async Task<IActionResult> DeleteProject(int id)
             {
-                var project = await _context.Project.FindAsync(id);
+                var project = await _context.Projects.FindAsync(id);
                 if (project == null)
                 {
                     return NotFound();
                 }
 
-                _context.Project.Remove(project);
+                _context.Projects.Remove(project);
                 await _context.SaveChangesAsync();
 
                 return NoContent();
@@ -97,7 +96,7 @@ namespace BackEnd.Controllers
 
             private bool ProjectExists(int id)
             {
-                return _context.Project.Any(e => e.ID == id);
+                return _context.Projects.Any(e => e.ID == id);
             }
         }
     }

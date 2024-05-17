@@ -13,7 +13,7 @@ namespace BackEnd.Models
 
         // Navigation property
         [ForeignKey("UserID")]
-        public Users User { get; set; }
+        public User User { get; set; }
 
         public int TaskID { get; set; }
 
