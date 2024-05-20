@@ -3,21 +3,21 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace BackEnd.Models
 {
-    public class Epyc
+    public class Epic
     {
         [Key]
         public int ID { get; set; }
 
         // Foreign key property
-        public int ProjectID { get; set; }
-
-        // Navigation property
-        [ForeignKey("ProjectID")]
-        public Project Project { get; set; }
+        public int ProjectID { get; set; }       
 
         public string? Name { get; set; }
         public string? Color { get; set; }
 
-        public ICollection<Task> Tasks { get; set; }
+
+        // Navigation properties 
+        public virtual ICollection<Tasks> Tasks { get; set; }
+         
+        public virtual Project Project { get; set; }
     }
 }

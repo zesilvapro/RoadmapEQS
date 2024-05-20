@@ -25,7 +25,7 @@ namespace BackEnd.Controllers
 
         [HttpGet]
         [Route("GetAllUsers")]
-        public ActionResult<IEnumerable<Users>> GetUsers()
+        public ActionResult<IEnumerable<User>> GetUsers()
         {
             try
             {
@@ -50,7 +50,7 @@ namespace BackEnd.Controllers
 
         [HttpPost]
         [Route("LoginUser")]
-        public ActionResult<Users> Login([FromBody] LoginModel loginModel)
+        public ActionResult<User> Login([FromBody] LoginModel loginModel)
         {
             try
             {
@@ -83,7 +83,7 @@ namespace BackEnd.Controllers
 
         [HttpPost]
         [Route("RegisterUser")]
-        public ActionResult RegisterUser([FromBody] Users newUser)
+        public ActionResult RegisterUser([FromBody] User newUser)
         {
             try
             {
