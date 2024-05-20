@@ -10,6 +10,6 @@ namespace BackEnd.Models
         public DateTime EndDate { get; set; }
         public DateTime StartDate { get; set; }
 
-        public virtual ICollection<Epyc> Epyc { get; set; }
+        public virtual ICollection<Epic> Epic { get; set; }
     }
 }

@@ -5,12 +5,13 @@ namespace BackEnd.Models
 {
     public class User_Task
     {
+        [Key]
         public int Id { get; set; }
 
         // Foreign key property
-        // public int UserID { get; set; }    
+        public int UserID { get; set; }    
 
-        // public int TaskID { get; set; }
+        public int TaskID { get; set; }
 
        //Navigation properties
         public virtual Tasks  Task { get; set; }

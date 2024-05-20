@@ -17,10 +17,10 @@ namespace BackEnd.Models
         public DateTime StartDate { get; set; }
 
         // Foreign key property
-        public int EpycID { get; set; }
+        public int EpicID { get; set; }
         // public int UserTasksID { get; set; }
         // Navigation properties    
-        public virtual Epyc Epyc { get; set; }
+        public virtual Epic Epic { get; set; }
 
         
         public virtual ICollection<User_Task> UserTasks { get; set; }

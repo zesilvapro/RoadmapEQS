@@ -3,7 +3,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace BackEnd.Models
 {
-    public class Epyc
+    public class Epic
     {
         [Key]
         public int ID { get; set; }
