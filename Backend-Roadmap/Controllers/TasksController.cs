@@ -16,10 +16,30 @@ namespace BackEnd.Controllers
             _context = context;
         }
 
+        // GET: api/Task
+        [HttpGet("GetallTasks")]
+        public async Task<ActionResult<IEnumerable<Models.Tasks>>> GetTasks()
+        {
+            return await _context.Tasks.ToListAsync();
+        }
+
+        // GET: api/Task/5
+        [HttpGet("GetTaskByID{id}")]
+        public async Task<ActionResult<Models.Tasks>> GetTask(int id)
+        {
+            var task = await _context.Tasks.FindAsync(id);
+
+            if (task == null)
+            {
+                return NotFound();
+            }
+
+            return task;
+        }
 
         // POST: api/Task
-        [HttpPost]
-        public async Task<ActionResult<Models.Task>> PostTask(Models.Task task)
+        [HttpPost("PostTask")]
+        public async Task<ActionResult<Models.Tasks>> PostTask(Models.Tasks task)
         {
             _context.Tasks.Add(task); // Corrected
             await _context.SaveChangesAsync();
@@ -45,7 +65,7 @@ namespace BackEnd.Controllers
 
         // PUT: 
         [HttpPut("UpdateTask/{id}")]
-        public async Task<IActionResult> PutTask(int id, Models.Task task)
+        public async Task<IActionResult> PutTask(int id, Models.Tasks task)
         {
             if (id != task.ID)
             {

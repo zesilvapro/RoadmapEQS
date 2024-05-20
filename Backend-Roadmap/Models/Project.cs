@@ -9,5 +9,7 @@ namespace BackEnd.Models
         public string? Name { get; set; }       
         public DateTime EndDate { get; set; }
         public DateTime StartDate { get; set; }
+
+        public virtual ICollection<Epyc> Epyc { get; set; }
     }
 }
