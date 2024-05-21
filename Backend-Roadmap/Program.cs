@@ -13,6 +13,7 @@ namespace BackEnd
             // Add services to the container.
             builder.Services.AddControllers();
 
+
             // Add CORS
             builder.Services.AddCors(options =>
             {
