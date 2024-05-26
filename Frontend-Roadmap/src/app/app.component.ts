@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { RoadmapService } from './services/RoadmapServices';
 import { Users } from './Data/Users';
 
+
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
@@ -23,5 +24,4 @@ export class AppComponent {
     );
   }
 
-  
 }

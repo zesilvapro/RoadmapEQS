@@ -20,17 +20,4 @@ export class GantViewComponent {
     return `${currentMonth} ${currentYear}`;
   }
 
-  chartData = [
-    ['Task', 'Start Date', 'End Date'],
-    ['Project 1', new Date(2024, 4, 1), new Date(2024, 4, 5)],
-    ['Project 2', new Date(2024, 4, 3), new Date(2024, 4, 8)],
-    // Add more tasks as needed
-  ];
-
-  chartOptions = {
-    height: 400,
-    gantt: {
-      trackHeight: 30
-    }
-  };
 }

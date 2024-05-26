@@ -1,0 +1,37 @@
+
+<form>
+  <h1>Create Project</h1>
+  <mat-form-field>
+    <mat-label>Project Name</mat-label>
+    <input matInput [(ngModel)]="projectName" name="projectName">
+  </mat-form-field>
+  <br/>
+  <mat-form-field>
+    <mat-label>Start Date</mat-label>
+    <input matInput [matDatepicker]="startPicker" [(ngModel)]="projectStartDate" name="projectStartDate">
+    <mat-datepicker-toggle matSuffix [for]="startPicker"></mat-datepicker-toggle>
+    <mat-datepicker #startPicker></mat-datepicker>
+  </mat-form-field>
+
+  <mat-form-field>
+    <mat-label>End Date</mat-label>
+    <input matInput [matDatepicker]="endPicker" [(ngModel)]="projectEndDate" name="projectEndDate">
+    <mat-datepicker-toggle matSuffix [for]="endPicker"></mat-datepicker-toggle>
+    <mat-datepicker #endPicker></mat-datepicker>
+  </mat-form-field>
+
+  <div class="actions">
+    <button style="background-color: rgb(29, 29, 163); color: white;"
+    onmouseover="this.style.backgroundColor='rgb(59, 59, 192)';"
+    onmouseout="this.style.backgroundColor='rgb(29, 29, 163)';"
+    mat-button
+    (click)="onCreateClick()">
+Create
+</button>&nbsp;
+    <button style="background-color: rgb(29, 29, 163); color: white;"
+    onmouseover="this.style.backgroundColor='rgb(59, 59, 192)';"
+    onmouseout="this.style.backgroundColor='rgb(29, 29, 163)';"
+    mat-button
+    (click)="onCancelClick()">Cancel</button>
+  </div>
+</form>

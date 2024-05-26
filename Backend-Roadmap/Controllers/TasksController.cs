@@ -1,4 +1,7 @@
-﻿using BackEnd.Context;
+﻿using AutoMapper;
+using BackEnd.Context;
+using BackEnd.Dtos;
+using BackEnd.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System.Threading.Tasks;
@@ -10,22 +13,26 @@ namespace BackEnd.Controllers
     public class TaskController : ControllerBase
     {
         private readonly AppDbContext _context;
+        private readonly IMapper _mapper;
 
-        public TaskController(AppDbContext context)
+        public TaskController(AppDbContext context, IMapper mapper)
         {
             _context = context;
+            _mapper = mapper;
         }
 
         // GET: api/Task
         [HttpGet("GetallTasks")]
-        public async Task<ActionResult<IEnumerable<Models.Tasks>>> GetTasks()
+        public async Task<ActionResult<TaskDto>> GetTasks()
         {
-            return await _context.Tasks.ToListAsync();
+            var tasks = await _context.Tasks.ToListAsync();
+            var taskDtos = _mapper.Map<List<TaskDto>>(tasks);
+            return Ok(taskDtos);
         }
 
         // GET: api/Task/5
         [HttpGet("GetTaskByID{id}")]
-        public async Task<ActionResult<Models.Tasks>> GetTask(int id)
+        public async Task<ActionResult<TaskDto>> GetTask(int id)
         {
             var task = await _context.Tasks.FindAsync(id);
 
@@ -34,24 +41,27 @@ namespace BackEnd.Controllers
                 return NotFound();
             }
 
-            return task;
+            var taskDto = _mapper.Map<TaskDto>(task);
+            return Ok(taskDto);
         }
 
         // POST: api/Task
         [HttpPost("PostTask")]
-        public async Task<ActionResult<Models.Tasks>> PostTask(Models.Tasks task)
+        public async Task<ActionResult<TaskDto>> PostTask(TaskDto taskDto)
         {
-            _context.Tasks.Add(task); // Corrected
+            var task = _mapper.Map<Tasks>(taskDto);
+            _context.Tasks.Add(task);
             await _context.SaveChangesAsync();
 
-            return CreatedAtAction("GetTask", new { id = task.ID }, task);
+            var createdTaskDto = _mapper.Map<TaskDto>(task);
+            return CreatedAtAction("GetTask", new { id = task.ID }, createdTaskDto);
         }
 
-        // DELETE:
+        // DELETE: api/Task/5
         [HttpDelete("DeleteTask/{id}")]
         public async Task<IActionResult> DeleteTask(int id)
         {
-            var task = await _context.Tasks.FindAsync(id); // Corrected
+            var task = await _context.Tasks.FindAsync(id);
             if (task == null)
             {
                 return NotFound();
@@ -63,15 +73,17 @@ namespace BackEnd.Controllers
             return NoContent();
         }
 
-        // PUT: 
+        // PUT: api/Task/5
         [HttpPut("UpdateTask/{id}")]
-        public async Task<IActionResult> PutTask(int id, Models.Tasks task)
+        public async Task<IActionResult> PutTask(int id, TaskDto taskDto)
         {
-            if (id != task.ID)
+            if (id != taskDto.Id)
             {
                 return BadRequest();
             }
 
+            var task = _mapper.Map<Tasks>(taskDto);
+            task.ID = id; // Ensure the entity has the correct ID
             _context.Entry(task).State = EntityState.Modified;
 
             try

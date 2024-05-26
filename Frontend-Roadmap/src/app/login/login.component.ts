@@ -1,12 +1,9 @@
-import { HomepageComponent } from './../homepage/homepage.component';
-import { RegisterComponent } from './../register/register.component';
+import { SharedDataService } from './../services/sharedData';
 import { Component } from '@angular/core';
 import { RoadmapService } from '../services/RoadmapServices';
 import { Router } from '@angular/router';
 import { MatDialog } from '@angular/material/dialog';
 import { RegisterService } from '../services/registerService';
-
-
 
 @Component({
   selector: 'app-login',
@@ -18,18 +15,21 @@ export class LoginComponent {
     password: string = '';
 
     constructor(
-      private authService: RoadmapService,
+      private roadmapService: RoadmapService,
       private router: Router,
       public dialog: MatDialog,
-      private registerService: RegisterService
-      ) { }
+      private registerService: RegisterService,
+      private sharedDataService: SharedDataService
+    ) { }
 
     login() {
-      this.authService.loginUser(this.email, this.password)
+      this.roadmapService.loginUser(this.email, this.password)
         .subscribe(response => {
           console.log('Login successful', response);
+          // Set the name property in SharedDataService
+          this.sharedDataService.name = response.name;
+          this.router.navigate(['/board']);
         }, error => {
-          // Handle login error here
           console.error('Login failed', error);
         });
     }
@@ -38,5 +38,4 @@ export class LoginComponent {
       const currentRegisterState = this.registerService.getRegister();
       this.registerService.setRegister(!currentRegisterState);
     }
-  }
-
+}

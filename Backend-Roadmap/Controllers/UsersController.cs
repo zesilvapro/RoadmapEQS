@@ -1,10 +1,15 @@
-﻿using BackEnd.Context;
+﻿using AutoMapper;
+using BackEnd.Context;
+using BackEnd.Dtos;
 using BackEnd.Models;
 using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.Data.SqlClient;
-using System.Data;
+using Microsoft.EntityFrameworkCore;
+using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.Text.RegularExpressions;
+using System.Threading.Tasks;
 
 
 
@@ -17,24 +22,27 @@ namespace BackEnd.Controllers
     public class UsersController : ControllerBase
     {
         private readonly AppDbContext _context;
+        private readonly IMapper _mapper;
 
-        public UsersController(AppDbContext context)
+        public UsersController(AppDbContext context, IMapper mapper)
         {
             _context = context;
+            _mapper = mapper;
+
         }
 
         [HttpGet]
         [Route("GetAllUsers")]
-        public ActionResult<IEnumerable<User>> GetUsers()
+        public async Task<ActionResult<IEnumerable<UserDto>>> GetUsers()
         {
             try
             {
-                
-                var userList = _context.Users.ToList();
+                var users = await _context.Users.ToListAsync();
+                var userDtos = _mapper.Map<List<UserDto>>(users);
 
-                if (userList.Count > 0)
+                if (userDtos.Count > 0)
                 {
-                    return Ok(userList);
+                    return Ok(userDtos);
                 }
                 else
                 {
@@ -47,10 +55,9 @@ namespace BackEnd.Controllers
             }
         }
 
-
         [HttpPost]
         [Route("LoginUser")]
-        public ActionResult<User> Login([FromBody] LoginModel loginModel)
+        public async Task<ActionResult<UserDto>> Login([FromBody] LoginModel loginModel)
         {
             try
             {
@@ -60,13 +67,13 @@ namespace BackEnd.Controllers
                 }
 
                 // Find user by email
-                var user = _context.Users.SingleOrDefault(u => u.Email == loginModel.Email);
+                var user = await _context.Users.SingleOrDefaultAsync(u => u.Email == loginModel.Email);
 
                 // Check if user exists and password matches
                 if (user != null && user.Password == loginModel.Password)
                 {
-                    // If login successful, return user data
-                    return Ok(user);
+                    var userDto = _mapper.Map<UserDto>(user);
+                    return Ok(userDto);
                 }
                 else
                 {
@@ -80,33 +87,33 @@ namespace BackEnd.Controllers
             }
         }
 
-
         [HttpPost]
         [Route("RegisterUser")]
-        public ActionResult RegisterUser([FromBody] User newUser)
+        public async Task<ActionResult> RegisterUser([FromBody] UserDto userDto)
         {
             try
             {
-                if (newUser == null)
+                if (userDto == null)
                 {
                     return BadRequest(new { message = "Invalid user data." });
                 }
 
                 // Validate email format using regular expression
-                if (!IsValidEmail(newUser.Email))
+                if (!IsValidEmail(userDto.Email))
                 {
                     return BadRequest(new { message = "Invalid email format." });
                 }
 
                 // Check if a user with the same username already exists
-                var existingUser = _context.Users.FirstOrDefault(u => u.Username == newUser.Username);
+                var existingUser = await _context.Users.FirstOrDefaultAsync(u => u.Username == userDto.Username);
                 if (existingUser != null)
                 {
                     return Conflict(new { message = "A user with the same username already exists." });
                 }
 
-                _context.Users.Add(newUser);
-                _context.SaveChanges();
+                var user = _mapper.Map<User>(userDto);
+                _context.Users.Add(user);
+                await _context.SaveChangesAsync();
 
                 return Ok(new { message = "User registered successfully." });
             }
@@ -118,7 +125,6 @@ namespace BackEnd.Controllers
 
         private bool IsValidEmail(string email)
         {
-           
             string pattern = @"^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$";
             return Regex.IsMatch(email, pattern);
         }
