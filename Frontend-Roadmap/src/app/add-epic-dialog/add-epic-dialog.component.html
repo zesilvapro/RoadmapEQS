@@ -1,0 +1,32 @@
+<form style="margin: 20px;">
+  <h1>Create Epic</h1>
+  <mat-form-field>
+    <mat-label>Epic Name</mat-label>
+    <input matInput [(ngModel)]="epicName" name="epicName">
+  </mat-form-field>
+
+  <!-- Dropdown select for Epic Color -->
+  <mat-form-field>
+    <mat-label>Select Epic Color</mat-label>
+    <mat-select [(ngModel)]="selectedColor" name="selectedColor">
+      <mat-option *ngFor="let color of colorOptions" [value]="color.value">
+        {{ color.viewValue }}
+      </mat-option>
+    </mat-select>
+  </mat-form-field>
+
+  <div class="actions">
+    <button style="background-color: rgb(29, 29, 163); color: white;"
+            onmouseover="this.style.backgroundColor='rgb(59, 59, 192)';"
+            onmouseout="this.style.backgroundColor='rgb(29, 29, 163)';"
+            mat-button
+            (click)="onCreateClick()">
+      Create
+    </button>&nbsp;
+    <button style="background-color: rgb(29, 29, 163); color: white;"
+            onmouseover="this.style.backgroundColor='rgb(59, 59, 192)';"
+            onmouseout="this.style.backgroundColor='rgb(29, 29, 163)';"
+            mat-button
+            (click)="onCancelClick()">Cancel</button>
+  </div>
+</form>

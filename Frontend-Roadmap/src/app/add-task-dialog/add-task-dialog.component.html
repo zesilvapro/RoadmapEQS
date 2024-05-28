@@ -1,0 +1,50 @@
+<form style="margin: 20px;">
+  <h1>Create Task</h1>
+  <mat-form-field class="full-width">
+    <mat-label>Task Name</mat-label>
+    <input matInput [(ngModel)]="taskName" name="taskName">
+  </mat-form-field>
+
+  <!-- Dropdown select for Epic -->
+ 
+
+  <mat-form-field class="full-width">
+    <mat-label>Start Date</mat-label>
+    <input matInput [matDatepicker]="startDatePicker" [(ngModel)]="taskStartDate" name="taskStartDate">
+    <mat-datepicker-toggle matSuffix [for]="startDatePicker"></mat-datepicker-toggle>
+    <mat-datepicker #startDatePicker></mat-datepicker>
+  </mat-form-field>
+
+  <mat-form-field class="full-width">
+    <mat-label>End Date</mat-label>
+    <input matInput [matDatepicker]="endDatePicker" [(ngModel)]="taskEndDate" name="taskEndDate">
+    <mat-datepicker-toggle matSuffix [for]="endDatePicker"></mat-datepicker-toggle>
+    <mat-datepicker #endDatePicker></mat-datepicker>
+  </mat-form-field>
+
+  <!-- Additional fields for Figma and Jira URLs -->
+  <mat-form-field class="full-width">
+    <mat-label>Figma URL</mat-label>
+    <input matInput [(ngModel)]="figmaUrl" name="figmaUrl">
+  </mat-form-field>
+
+  <mat-form-field class="full-width">
+    <mat-label>Jira URL</mat-label>
+    <input matInput [(ngModel)]="jiraUrl" name="jiraUrl">
+  </mat-form-field>
+
+  <div class="actions">
+    <button style="background-color: rgb(29, 29, 163); color: white;"
+            onmouseover="this.style.backgroundColor='rgb(59, 59, 192)';"
+            onmouseout="this.style.backgroundColor='rgb(29, 29, 163)';"
+            mat-button
+            (click)="onCreateClick()">
+      Create
+    </button>&nbsp;
+    <button style="background-color: rgb(29, 29, 163); color: white;"
+            onmouseover="this.style.backgroundColor='rgb(59, 59, 192)';"
+            onmouseout="this.style.backgroundColor='rgb(29, 29, 163)';"
+            mat-button
+            (click)="onCancelClick()">Cancel</button>
+  </div>
+</form>
