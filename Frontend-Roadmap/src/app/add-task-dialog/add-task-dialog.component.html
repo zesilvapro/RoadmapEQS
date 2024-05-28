@@ -5,8 +5,10 @@
     <input matInput [(ngModel)]="taskName" name="taskName">
   </mat-form-field>
 
-  <!-- Dropdown select for Epic -->
- 
+  <mat-form-field class="full-width">
+    <mat-label>Epic ID</mat-label>
+    <input matInput type="number" [(ngModel)]="epicId" name="epicId"> <!-- Bind to epicId -->
+  </mat-form-field>
 
   <mat-form-field class="full-width">
     <mat-label>Start Date</mat-label>

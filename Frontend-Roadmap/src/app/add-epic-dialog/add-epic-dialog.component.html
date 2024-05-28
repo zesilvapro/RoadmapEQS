@@ -5,11 +5,16 @@
     <input matInput [(ngModel)]="epicName" name="epicName">
   </mat-form-field>
 
+  <mat-form-field>
+    <mat-label>Project ID</mat-label>
+    <input matInput type="number" [(ngModel)]="ProjectId" name="ProjectId"> <!-- Bind to ProjectId -->
+  </mat-form-field>
+
   <!-- Dropdown select for Epic Color -->
   <mat-form-field>
     <mat-label>Select Epic Color</mat-label>
     <mat-select [(ngModel)]="selectedColor" name="selectedColor">
-      <mat-option *ngFor="let color of colorOptions" [value]="color.value">
+      <mat-option *ngFor="let color of colorOptions" [value]="color.value" [ngStyle]="{ 'background-color': color.value, 'color': 'white' }">
         {{ color.viewValue }}
       </mat-option>
     </mat-select>

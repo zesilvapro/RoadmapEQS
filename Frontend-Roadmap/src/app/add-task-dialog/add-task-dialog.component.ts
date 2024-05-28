@@ -1,42 +1,47 @@
 import { Component } from '@angular/core';
 import { MatDialogRef } from '@angular/material/dialog';
-
+import { Task } from '../Data/Task';
+import { TaskService } from '../services/TaskService';
 @Component({
   selector: 'app-add-task-dialog',
   templateUrl: './add-task-dialog.component.html',
 })
 export class AddTaskDialogComponent {
   taskName: string = '';
-  selectedEpic: string = '';
-  taskStartDate: Date | null = null;
-  taskEndDate: Date | null = null;
+  taskStartDate: Date = new Date();
+  taskEndDate: Date = new Date();
   figmaUrl: string = '';
   jiraUrl: string = '';
+  epicId: number = 0;
 
-    // testData
-    epicOptions = [
-      { value: 'epic1', viewValue: 'Epic 1' },
-      { value: 'epic2', viewValue: 'Epic 2' },
-      { value: 'epic3', viewValue: 'Epic 3' }
-      
-    ];
-
-  constructor(public dialogRef: MatDialogRef<AddTaskDialogComponent>) { }
+  constructor(
+    public dialogRef: MatDialogRef<AddTaskDialogComponent>,
+    private taskService: TaskService
+  ) { }
 
   onCreateClick(): void {
-    const taskDto = {
-      name: this.taskName,
-      epicId: this.selectedEpic,
-      startDate: this.taskStartDate,
-      endDate: this.taskEndDate,
-      figmaUrl: this.figmaUrl,
-      jiraUrl: this.jiraUrl
+    const taskDto: Task = {
+      ID: 0,
+      EpicId: this.epicId,
+      Name: this.taskName,
+      StartDate: this.taskStartDate,
+      EndDate: this.taskEndDate,
+      FigmaUrl: this.figmaUrl,
+      JiraUrl: this.jiraUrl
     };
 
-   
-
-    // Close the dialog
-    this.dialogRef.close();
+    this.taskService.addTask(taskDto).subscribe({
+      next: (response) => {
+        console.log('Task created successfully', response);
+        // Close the dialog on success
+        this.dialogRef.close();
+      },
+      error: (error) => {
+        console.error('Error creating task', error);
+        // Display a user-friendly error message
+        alert('An error occurred while creating the task. Please try again later.');
+      }
+    });
   }
 
   onCancelClick(): void {
