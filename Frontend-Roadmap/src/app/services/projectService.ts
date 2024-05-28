@@ -16,8 +16,15 @@ export class ProjectService {
 
   constructor(private http: HttpClient) { }
 
+  public getAllProjects(): Observable<Projects[]> {
+    const url = `${this.roadmapUrl}/GetAllProjects`;
+    return this.http.get<Projects[]>(url);
+  }
+
   public addProject(project: Projects): Observable<Projects> {
     const url = `${this.roadmapUrl}/CreateProject`;
     return this.http.post<Projects>(url, project, this.httpOptions);
   }
+
+
 }

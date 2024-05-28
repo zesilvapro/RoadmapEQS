@@ -46,7 +46,7 @@ namespace BackEnd.Controllers
         }
 
         // POST: api/Task
-        [HttpPost("PostTask")]
+        [HttpPost("CreateTask")]
         public async Task<ActionResult<TaskDto>> PostTask(TaskDto taskDto)
         {
             var task = _mapper.Map<Tasks>(taskDto);

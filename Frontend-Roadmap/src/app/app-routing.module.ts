@@ -15,7 +15,8 @@ const routes: Routes = [
   { path: 'register', component: RegisterComponent },
   { path: 'projlist', component: ProjectListComponent },
   { path: 'gant', component: GantViewComponent },
-  { path: 'verify', component: SucessDialogComponent }
+  { path: 'verify', component: SucessDialogComponent },
+  { path: '**', redirectTo: '/board' }
 ];
 
 @NgModule({

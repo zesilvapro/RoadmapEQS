@@ -21,6 +21,10 @@ import { SucessDialogComponent } from './sucess-dialog/sucess-dialog.component';
 import { HomepageComponent } from './homepage/homepage.component';
 import { UserListComponent } from './user-list/user-list.component';
 import { CreateProjectComponent } from './create-project/create-project.component';
+import { AddEpicDialogComponent } from './add-epic-dialog/add-epic-dialog.component';
+import { AddTaskDialogComponent } from './add-task-dialog/add-task-dialog.component';
+import { MatSelectModule } from '@angular/material/select';
+
 
 
 
@@ -36,6 +40,8 @@ import { CreateProjectComponent } from './create-project/create-project.componen
     HomepageComponent,
     UserListComponent,
     CreateProjectComponent,
+    AddEpicDialogComponent,
+    AddTaskDialogComponent,
     
 
   ],
@@ -51,6 +57,7 @@ import { CreateProjectComponent } from './create-project/create-project.componen
     MatDatepickerModule,
     MatNativeDateModule,
     MatButtonModule,
+    MatSelectModule
 
 
 
